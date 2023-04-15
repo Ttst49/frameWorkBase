@@ -8,14 +8,14 @@ use Attributes\TargetEntity;
 use Attributes\TargetRepository;
 use Attributes\UsesEntity;
 
-class AbstractController
-{
+abstract class AbstractController
 
     /**
      * Defining new abstract class managing all the controller's first uses
      * Make a constructor and shared methods for all the controllers using this controller as a parent
      */
 
+{
 
     protected $usesEntity = true;
 
@@ -26,7 +26,7 @@ class AbstractController
     {
 
 
-            $this->usesEntity =$this->resolveUsesEntity();
+        $this->usesEntity =$this->resolveUsesEntity();
 
 
         if($this->usesEntity){
@@ -75,4 +75,25 @@ class AbstractController
     public function redirect(? array $params=null){
         return \App\Response::redirect($params);
     }
+
+    public function getUser(){
+        return \App\Session::getUser();
+    }
+    public function get(string $dataType, array $requestBodyParams){
+        return \App\Request::get($dataType,$requestBodyParams);
+    }
+
+    public function post(string $dataType, array $requestBodyParams){
+        return \App\Request::post($dataType,$requestBodyParams);
+    }
+    public function delete(string $dataType, array $requestBodyParams){
+        return \App\Request::delete($dataType,$requestBodyParams);
+    }
+    public function put(string $dataType, array $requestBodyParams){
+        return \App\Request::put($dataType,$requestBodyParams);
+    }
+    public function json($trucARenvoyerAuClient,?string $methodSpe = null){
+        return \App\Response::json($trucARenvoyerAuClient, $methodSpe);
+    }
+
 }
